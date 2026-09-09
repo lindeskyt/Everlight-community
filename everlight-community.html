@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Everlight Community</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#ffffff;
+    --cream:#fff8f3;
+    --peach:#ffe3cc;
+    --orange:#ff7a30;
+    --orange-deep:#e85d25;
+    --gold:#ffb84d;
+    --charcoal:#231a14;
+    --brown:#6b5d52;
+    --line:rgba(35,26,20,0.10);
+    --card:#ffffff;
+    --shadow:0 20px 45px rgba(232,93,37,0.14);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    color:var(--charcoal);
+    background:linear-gradient(180deg, #ffffff 0%, #ffffff 32%, var(--peach) 60%, var(--orange) 100%);
+    background-attachment:fixed;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.brand{font-family:'Space Grotesk',sans-serif;}
+  a{text-decoration:none;color:inherit;}
+  img,svg{display:block;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+
+  /* NAVBAR */
+  nav{position:sticky;top:0;z-index:40;backdrop-filter:blur(10px);background:rgba(255,255,255,0.75);border-bottom:1px solid var(--line);}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1120px;margin:0 auto;}
+  .brand{font-weight:700;font-size:1.15rem;display:flex;align-items:center;gap:8px;}
+  .brand-dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--orange-deep));}
+  .nav-links{display:flex;gap:28px;font-weight:500;font-size:0.95rem;color:var(--brown);}
+  .nav-links a:hover{color:var(--orange-deep);}
+  .nav-cta{display:flex;gap:10px;align-items:center;}
+  .btn{padding:10px 18px;border-radius:999px;font-weight:600;font-size:0.9rem;border:1px solid transparent;cursor:pointer;transition:transform .15s ease, box-shadow .15s ease;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:linear-gradient(135deg,var(--orange),var(--orange-deep));color:#fff;box-shadow:0 10px 24px rgba(232,93,37,0.35);}
+  .btn-ghost{background:transparent;border-color:var(--line);color:var(--charcoal);}
+  .btn-small{padding:7px 14px;font-size:0.82rem;}
+  .hide-mobile{display:flex;}
+  @media (max-width:760px){.hide-mobile{display:none;}}
+
+  /* HERO */
+  .hero{padding:80px 0 60px;}
+  .hero-inner{display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:center;}
+  @media (max-width:900px){.hero-inner{grid-template-columns:1fr;}}
+  .hero-text h1{font-size:clamp(2.3rem,5vw,3.4rem);line-height:1.08;margin:0 0 20px;font-weight:700;}
+  .hero-text p{color:var(--brown);font-size:1.08rem;line-height:1.6;max-width:480px;margin:0 0 30px;}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+  .hero-stats{display:flex;gap:32px;margin-top:40px;}
+  .hero-stats div strong{display:block;font-size:1.5rem;font-family:'Space Grotesk',sans-serif;}
+  .hero-stats div span{color:var(--brown);font-size:0.85rem;}
+
+  .hero-visual{position:relative;height:380px;perspective:1000px;}
+  .float-card{position:absolute;width:230px;padding:20px;border-radius:20px;background:var(--card);box-shadow:var(--shadow);border:1px solid var(--line);transition:transform .12s ease-out;}
+  .float-card h4{margin:0 0 6px;font-size:0.95rem;}
+  .float-card p{margin:0;font-size:0.8rem;color:var(--brown);}
+  .float-card .pill{display:inline-block;font-size:0.7rem;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--peach);color:var(--orange-deep);margin-bottom:10px;}
+  .fc-1{top:10px;left:20px;z-index:3;}
+  .fc-2{top:120px;left:150px;z-index:2;}
+  .fc-3{top:230px;left:40px;z-index:1;}
+
+  /* SECTION HEADERS */
+  .section{padding:70px 0;}
+  .section-head{max-width:600px;margin:0 0 40px;}
+  .section-head h2{font-size:clamp(1.7rem,3vw,2.2rem);margin:0 0 12px;}
+  .section-head p{color:var(--brown);line-height:1.6;margin:0;}
+
+  /* GAMES */
+  .games-track{display:flex;gap:14px;overflow-x:auto;padding-bottom:10px;scrollbar-width:thin;}
+  .game-chip{flex:0 0 auto;min-width:160px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 8px 20px rgba(35,26,20,0.05);transition:transform .15s ease;}
+  .game-chip:hover{transform:translateY(-4px);}
+  .game-glyph{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-family:'Space Grotesk',sans-serif;margin-bottom:14px;}
+  .game-chip h4{margin:0 0 4px;font-size:0.98rem;}
+  .game-chip span{font-size:0.78rem;color:var(--brown);}
+
+  /* DASHBOARD */
+  .dashboard-panel{background:var(--card);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);overflow:hidden;}
+  .dashboard-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 26px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
+  .dashboard-top h3{margin:0;font-size:1.1rem;}
+  .dashboard-controls{display:flex;gap:10px;flex-wrap:wrap;}
+  .dashboard-controls input, .dashboard-controls select{
+    border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-family:'Inter',sans-serif;font-size:0.85rem;background:var(--cream);color:var(--charcoal);
+  }
+  .announcement-list{padding:10px 26px 26px;display:flex;flex-direction:column;gap:14px;max-height:560px;overflow-y:auto;}
+  .announcement-card{border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:#fffefc;}
+  .a-top{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;}
+  .a-tag{font-size:0.72rem;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--peach);color:var(--orange-deep);}
+  .a-pin{font-size:0.72rem;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--charcoal);color:#fff;}
+  .a-date{font-size:0.75rem;color:var(--brown);margin-left:auto;}
+  .announcement-card h4{margin:0 0 6px;font-size:1rem;}
+  .announcement-card p{margin:0;font-size:0.9rem;color:var(--brown);line-height:1.55;}
+  .empty-state{padding:40px 20px;text-align:center;color:var(--brown);font-size:0.92rem;}
+
+  /* COMMUNITY */
+  .community-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+  .link-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 8px 20px rgba(35,26,20,0.05);}
+  .link-card h4{margin:0 0 6px;font-size:1rem;}
+  .link-card p{margin:0 0 16px;font-size:0.85rem;color:var(--brown);}
+
+  footer{padding:36px 0 60px;text-align:center;color:rgba(255,255,255,0.9);}
+  footer .foot-inner{display:flex;flex-direction:column;gap:10px;align-items:center;}
+  footer a{font-size:0.82rem;text-decoration:underline;opacity:0.85;}
+
+  /* MODAL */
+  .modal-overlay{position:fixed;inset:0;background:rgba(35,26,20,0.55);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;}
+  .modal-overlay.open{display:flex;}
+  .modal{background:#fff;border-radius:22px;padding:30px;width:100%;max-width:520px;max-height:85vh;overflow-y:auto;box-shadow:0 30px 60px rgba(0,0,0,0.3);}
+  .modal h3{margin:0 0 18px;}
+  .modal label{display:block;font-size:0.82rem;font-weight:600;margin:14px 0 6px;}
+  .modal input, .modal textarea, .modal select{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-family:'Inter',sans-serif;font-size:0.9rem;background:var(--cream);}
+  .modal textarea{resize:vertical;min-height:90px;}
+  .modal-actions{display:flex;gap:10px;margin-top:20px;}
+  .close-x{position:absolute;top:16px;right:20px;cursor:pointer;font-size:1.3rem;color:var(--brown);background:none;border:none;}
+  .modal{position:relative;}
+  .admin-item{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:8px;}
+  .admin-item span{font-size:0.85rem;}
+  .admin-item-actions{display:flex;gap:6px;}
+  .icon-btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:5px 9px;cursor:pointer;font-size:0.78rem;}
+  .error-text{color:#c0392b;font-size:0.82rem;margin-top:8px;display:none;}
+  .divider{height:1px;background:var(--line);margin:22px 0;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand"><span class="brand-dot"></span> Everlight Community</div>
+    <div class="nav-links hide-mobile">
+      <a href="#games">Games</a>
+      <a href="#announcements">Pengumuman</a>
+      <a href="#community">Komunitas</a>
+    </div>
+    <div class="nav-cta">
+      <button class="btn btn-ghost btn-small" onclick="openAdminModal()">Admin</button>
+      <a href="#community" class="btn btn-primary btn-small">Gabung</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div class="hero-text">
+      <h1>Satu komunitas.<br>Semua game yang kamu mainkan.</h1>
+      <p>Everlight Community jadi rumah buat para pemain dari berbagai game — tempat ngobrol, cari tim, dan dapat info terbaru tanpa perlu pindah-pindah grup.</p>
+      <div class="hero-actions">
+        <a href="#community" class="btn btn-primary">Gabung Komunitas</a>
+        <a href="#announcements" class="btn btn-ghost">Lihat Pengumuman</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong id="statTotal">0</strong><span>Pengumuman aktif</span></div>
+        <div><strong id="statGames">8</strong><span>Game didukung</span></div>
+        <div><strong>24/7</strong><span>Komunitas aktif</span></div>
+      </div>
+    </div>
+    <div class="hero-visual" id="heroVisual">
+      <div class="float-card fc-1" data-tilt>
+        <span class="pill">Pengumuman</span>
+        <h4>Event mingguan dibuka</h4>
+        <p>Cek jadwal & syarat ikutan di dashboard.</p>
+      </div>
+      <div class="float-card fc-2" data-tilt>
+        <span class="pill">Komunitas</span>
+        <h4>+ member baru minggu ini</h4>
+        <p>Dari berbagai game, satu server.</p>
+      </div>
+      <div class="float-card fc-3" data-tilt>
+        <span class="pill">Update</span>
+        <h4>Slot tim baru dibuka</h4>
+        <p>Cari squad buat game favoritmu.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="games">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Game yang dimainkan di sini</h2>
+      <p>Everlight nggak dibatasi satu game — member bebas datang dari mana aja.</p>
+    </div>
+    <div class="games-track" id="gamesTrack"></div>
+  </div>
+</section>
+
+<section class="section" id="announcements">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Dashboard pengumuman</h2>
+      <p>Semua info resmi komunitas — event, update, dan pengumuman staff — ada di sini.</p>
+    </div>
+    <div class="dashboard-panel">
+      <div class="dashboard-top">
+        <h3>Pengumuman terbaru</h3>
+        <div class="dashboard-controls">
+          <input type="text" id="searchInput" placeholder="Cari pengumuman...">
+          <select id="filterGame"></select>
+        </div>
+      </div>
+      <div class="announcement-list" id="announcementList"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="community">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Gabung sekarang</h2>
+      <p>Pilih channel yang paling nyaman buat kamu.</p>
+    </div>
+    <div class="community-links">
+      <div class="link-card">
+        <h4>Grup WhatsApp</h4>
+        <p>Ngobrol santai, sharing info harian.</p>
+        <a class="btn btn-primary btn-small" href="https://chat.whatsapp.com/Gl8xukNr38R6EBIBXIEyGC" target="_blank">Gabung WhatsApp</a>
+      </div>
+      <div class="link-card">
+        <h4>Punya pertanyaan?</h4>
+        <p>Hubungi staff komunitas lewat grup di atas.</p>
+        <a class="btn btn-ghost btn-small" href="#announcements">Cek pengumuman dulu</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div>© <span id="year"></span> Everlight Community</div>
+    <a href="#" onclick="openAdminModal();return false;">Masuk sebagai admin</a>
+  </div>
+</footer>
+
+<!-- ADMIN MODAL -->
+<div class="modal-overlay" id="adminOverlay">
+  <div class="modal">
+    <button class="close-x" onclick="closeAdminModal()">&times;</button>
+
+    <div id="loginView">
+      <h3>Masuk Admin</h3>
+      <label>Password admin</label>
+      <input type="password" id="adminPassword" placeholder="Masukkan password">
+      <p class="error-text" id="loginError">Password salah, coba lagi.</p>
+      <div class="modal-actions">
+        <button class="btn btn-primary" onclick="tryAdminLogin()">Masuk</button>
+        <button class="btn btn-ghost" onclick="closeAdminModal()">Batal</button>
+      </div>
+    </div>
+
+    <div id="adminView" style="display:none;">
+      <h3>Kelola Pengumuman</h3>
+      <input type="hidden" id="editId">
+      <label>Judul</label>
+      <input type="text" id="formTitle" placeholder="Judul pengumuman">
+      <label>Isi pengumuman</label>
+      <textarea id="formBody" placeholder="Tulis detail pengumuman di sini..."></textarea>
+      <label>Tag game / kategori</label>
+      <input type="text" id="formTag" placeholder="contoh: Umum, Minecraft, Valorant">
+      <label style="display:flex;align-items:center;gap:8px;font-weight:500;">
+        <input type="checkbox" id="formPinned" style="width:auto;"> Sematkan (pin) di atas
+      </label>
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="saveBtn" onclick="saveAnnouncement()">Simpan Pengumuman</button>
+        <button class="btn btn-ghost" onclick="resetForm()">Bersihkan</button>
+      </div>
+
+      <div class="divider"></div>
+      <h3 style="font-size:1rem;">Daftar pengumuman</h3>
+      <div id="adminList"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---------- CONFIG ----------
+  // Ganti password ini kapan saja. Ini proteksi sederhana di sisi browser,
+  // cocok untuk komunitas kecil, bukan sistem login server sungguhan.
+  const ADMIN_PASSWORD = "everlight2026";
+  const STORAGE_KEY = "everlight_announcements_v1";
+
+  const GAMES = [
+    {name:"Minecraft", color:"#5b8c3a"},
+    {name:"Valorant", color:"#ff4655"},
+    {name:"Mobile Legends", color:"#1e5fbf"},
+    {name:"Free Fire", color:"#ff7a30"},
+    {name:"Genshin Impact", color:"#7a5cff"},
+    {name:"PUBG Mobile", color:"#c9a227"},
+    {name:"Roblox", color:"#333333"},
+    {name:"Game lainnya", color:"#6b5d52"},
+  ];
+
+  function renderGames(){
+    const track = document.getElementById('gamesTrack');
+    track.innerHTML = GAMES.map(g => `
+      <div class="game-chip">
+        <div class="game-glyph" style="background:${g.color}">${g.name.charAt(0)}</div>
+        <h4>${g.name}</h4>
+        <span>Aktif dimainkan member</span>
+      </div>
+    `).join('');
+    document.getElementById('statGames').textContent = GAMES.length;
+  }
+
+  // ---------- DATA ----------
+  function seedIfEmpty(){
+    const existing = localStorage.getItem(STORAGE_KEY);
+    if(existing) return;
+    const now = Date.now();
+    const seed = [
+      {id: now+1, title:"Selamat datang di Everlight Community", body:"Komunitas ini terbuka untuk pemain dari game apa pun. Yuk kenalan dan cari squad baru!", tag:"Umum", pinned:true, date: now},
+      {id: now+2, title:"Event mingguan segera dibuka", body:"Pantau terus dashboard ini untuk info jadwal dan cara ikut event mingguan komunitas.", tag:"Event", pinned:false, date: now - 86400000},
+    ];
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(seed));
+  }
+
+  function getAnnouncements(){
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+  }
+  function setAnnouncements(list){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+  }
+
+  function formatDate(ts){
+    return new Date(ts).toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'});
+  }
+
+  // ---------- RENDER DASHBOARD ----------
+  function renderFilterOptions(){
+    const list = getAnnouncements();
+    const tags = Array.from(new Set(list.map(a => a.tag || "Umum")));
+    const select = document.getElementById('filterGame');
+    select.innerHTML = `<option value="__all">Semua kategori</option>` +
+      tags.map(t => `<option value="${t}">${t}</option>`).join('');
+  }
+
+  function renderAnnouncements(){
+    const search = document.getElementById('searchInput').value.trim().toLowerCase();
+    const filterTag = document.getElementById('filterGame').value;
+    let list = getAnnouncements();
+
+    list = list.filter(a => {
+      const matchSearch = !search || a.title.toLowerCase().includes(search) || a.body.toLowerCase().includes(search);
+      const matchTag = filterTag === "__all" || (a.tag || "Umum") === filterTag;
+      return matchSearch && matchTag;
+    });
+
+    list.sort((a,b) => (b.pinned - a.pinned) || (b.date - a.date));
+
+    const container = document.getElementById('announcementList');
+    if(list.length === 0){
+      container.innerHTML = `<div class="empty-state">Belum ada pengumuman yang cocok.</div>`;
+    } else {
+      container.innerHTML = list.map(a => `
+        <div class="announcement-card">
+          <div class="a-top">
+            <span class="a-tag">${a.tag || "Umum"}</span>
+            ${a.pinned ? '<span class="a-pin">Disematkan</span>' : ''}
+            <span class="a-date">${formatDate(a.date)}</span>
+          </div>
+          <h4>${a.title}</h4>
+          <p>${a.body}</p>
+        </div>
+      `).join('');
+    }
+    document.getElementById('statTotal').textContent = getAnnouncements().length;
+  }
+
+  document.getElementById('searchInput').addEventListener('input', renderAnnouncements);
+  document.getElementById('filterGame').addEventListener('change', renderAnnouncements);
+
+  // ---------- ADMIN ----------
+  let isAdmin = false;
+
+  function openAdminModal(){
+    document.getElementById('adminOverlay').classList.add('open');
+    if(isAdmin){ showAdminView(); } else { showLoginView(); }
+  }
+  function closeAdminModal(){
+    document.getElementById('adminOverlay').classList.remove('open');
+  }
+  function showLoginView(){
+    document.getElementById('loginView').style.display = 'block';
+    document.getElementById('adminView').style.display = 'none';
+    document.getElementById('adminPassword').value = '';
+    document.getElementById('loginError').style.display = 'none';
+  }
+  function showAdminView(){
+    document.getElementById('loginView').style.display = 'none';
+    document.getElementById('adminView').style.display = 'block';
+    renderAdminList();
+  }
+  function tryAdminLogin(){
+    const val = document.getElementById('adminPassword').value;
+    if(val === ADMIN_PASSWORD){
+      isAdmin = true;
+      showAdminView();
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+    }
+  }
+
+  function renderAdminList(){
+    const list = getAnnouncements().sort((a,b) => b.date - a.date);
+    const container = document.getElementById('adminList');
+    if(list.length === 0){
+      container.innerHTML = `<div class="empty-state">Belum ada pengumuman.</div>`;
+      return;
+    }
+    container.innerHTML = list.map(a => `
+      <div class="admin-item">
+        <span>${a.pinned ? '📌 ' : ''}${a.title} <em style="color:var(--brown);">(${a.tag || "Umum"})</em></span>
+        <div class="admin-item-actions">
+          <button class="icon-btn" onclick="editAnnouncement(${a.id})">Edit</button>
+          <button class="icon-btn" onclick="deleteAnnouncement(${a.id})">Hapus</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function saveAnnouncement(){
+    const title = document.getElementById('formTitle').value.trim();
+    const body = document.getElementById('formBody').value.trim();
+    const tag = document.getElementById('formTag').value.trim() || "Umum";
+    const pinned = document.getElementById('formPinned').checked;
+    const editId = document.getElementById('editId').value;
+
+    if(!title || !body){
+      alert("Judul dan isi pengumuman wajib diisi.");
+      return;
+    }
+
+    let list = getAnnouncements();
+    if(editId){
+      list = list.map(a => a.id == editId ? {...a, title, body, tag, pinned} : a);
+    } else {
+      list.push({id: Date.now(), title, body, tag, pinned, date: Date.now()});
+    }
+    setAnnouncements(list);
+    resetForm();
+    renderAdminList();
+    renderFilterOptions();
+    renderAnnouncements();
+  }
+
+  function editAnnouncement(id){
+    const item = getAnnouncements().find(a => a.id === id);
+    if(!item) return;
+    document.getElementById('editId').value = item.id;
+    document.getElementById('formTitle').value = item.title;
+    document.getElementById('formBody').value = item.body;
+    document.getElementById('formTag').value = item.tag || "";
+    document.getElementById('formPinned').checked = !!item.pinned;
+    document.getElementById('saveBtn').textContent = "Update Pengumuman";
+    document.getElementById('formTitle').scrollIntoView({behavior:"smooth", block:"center"});
+  }
+
+  function deleteAnnouncement(id){
+    if(!confirm("Hapus pengumuman ini?")) return;
+    const list = getAnnouncements().filter(a => a.id !== id);
+    setAnnouncements(list);
+    renderAdminList();
+    renderFilterOptions();
+    renderAnnouncements();
+  }
+
+  function resetForm(){
+    document.getElementById('editId').value = '';
+    document.getElementById('formTitle').value = '';
+    document.getElementById('formBody').value = '';
+    document.getElementById('formTag').value = '';
+    document.getElementById('formPinned').checked = false;
+    document.getElementById('saveBtn').textContent = "Simpan Pengumuman";
+  }
+
+  document.getElementById('adminOverlay').addEventListener('click', (e) => {
+    if(e.target.id === 'adminOverlay') closeAdminModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closeAdminModal();
+  });
+
+  // ---------- 3D TILT ON HERO CARDS ----------
+  const heroVisual = document.getElementById('heroVisual');
+  heroVisual.addEventListener('mousemove', (e) => {
+    const rect = heroVisual.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    document.querySelectorAll('[data-tilt]').forEach((card, i) => {
+      const depth = (i + 1) * 6;
+      card.style.transform = `rotateY(${x * depth}deg) rotateX(${-y * depth}deg) translateZ(0)`;
+    });
+  });
+  heroVisual.addEventListener('mouseleave', () => {
+    document.querySelectorAll('[data-tilt]').forEach(card => {
+      card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+    });
+  });
+
+  // ---------- INIT ----------
+  seedIfEmpty();
+  renderGames();
+  renderFilterOptions();
+  renderAnnouncements();
+</script>
+
+</body>
+</html>
